@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<<<<<<< Updated upstream
-<html><head><meta charset="utf-8"><title>GitHub - sebastienros/jint: Javascript Interpreter for .NET</title><meta name="author" content=""><meta name="description" content="Javascript Interpreter for .NET. Contribute to sebastienros/jint development by creating an account on GitHub."><meta name="dendron:source-url" content="https://github.com/sebastienros/jint"><meta name="dendron:length" content="52461"><meta name="dendron:time-to-read-minutes" content="43"></head><body><article id="dendron-article-content"><div id="readability-page-1" class="page"><div data-hpc="true" containertiming="hpc"><article itemprop="text"><p dir="auto"><a href="https://github.com/sebastienros/jint/actions/workflows/build.yml"></a>
-||||||| Stash base
-<html><head><meta charset="utf-8"><title>GitHub - sebastienros/jint: Javascript Interpreter for .NET</title><meta name="author" content=""><meta name="description" content="Javascript Interpreter for .NET. Contribute to sebastienros/jint development by creating an account on GitHub."><meta name="dendron:source-url" content="https://github.com/sebastienros/jint"><meta name="dendron:length" content="19550"><meta name="dendron:time-to-read-minutes" content="15"></head><body><article id="dendron-article-content"><div id="readability-page-1" class="page"><div data-hpc="true" containertiming="hpc"><article itemprop="text"><p dir="auto"><a href="https://github.com/sebastienros/jint/actions/workflows/build.yml"></a>
-=======
 <html><head><meta charset="utf-8"><title>GitHub - sebastienros/jint: Javascript Interpreter for .NET</title><meta name="author" content=""><meta name="description" content="Javascript Interpreter for .NET. Contribute to sebastienros/jint development by creating an account on GitHub."><meta name="dendron:source-url" content="https://github.com/sebastienros/jint"><meta name="dendron:length" content="49837"><meta name="dendron:time-to-read-minutes" content="41"></head><body><article id="dendron-article-content"><div id="readability-page-1" class="page"><div data-hpc="true" containertiming="hpc"><article itemprop="text"><p dir="auto"><a href="https://github.com/sebastienros/jint/actions/workflows/build.yml"></a>
->>>>>>> Stashed changes
 <a href="https://www.nuget.org/packages/Jint" rel="nofollow"></a>
 <a href="https://www.nuget.org/packages/Jint" rel="nofollow"></a>
 <a href="https://www.myget.org/feed/jint/package/nuget/Jint" rel="nofollow"></a>
@@ -795,43 +789,6 @@ for (var i = 0; i < 10; i++)
         <span>engine</span><span>.</span><span>Execute</span><span>(</span><span>"a++"</span><span>)</span><span>;</span>
     <span>}</span>
 <span>}</span></pre></div>
-<p dir="auto"><h3 tabindex="-1" dir="auto">Surviving an unbounded recursion</h3><a id="user-content-surviving-an-unbounded-recursion" aria-label="Permalink: Surviving an unbounded recursion" href="#surviving-an-unbounded-recursion"></a>
-<p dir="auto">A script that recurses without bound does not throw. It exhausts the native stack of the thread it is
-running on, and that ends the host process: no exception, nothing to <code>catch</code>, nothing in the log but an
-exit code. Every route into a function body can do it — a call, <code>new</code>, a getter or setter, a
-<code>valueOf</code>/<code>toString</code> coercion, a Proxy trap, a callback a built-in invokes, a host delegate that calls
-back into the engine.</p>
-<div dir="auto" data-snippet-clipboard-copy-content="var engine = new Engine(options =>
-{
-    options.Constraints.StackOverflowGuard = true;
-});"><pre><span>var</span> <span>engine</span> <span>=</span> <span>new</span> <span>Engine</span><span>(</span>options <span>=&gt;</span>
-<span>{</span>
-    <span>options</span><span>.</span><span>Constraints</span><span>.</span><span>StackOverflowGuard</span> <span>=</span> <span>true</span><span>;</span>
-<span>}</span><span>)</span><span>;</span></pre></div>
-<p dir="auto">With the guard on, every entry into a script function first checks that the native stack has not been used
-up, and the same script raises <code>RangeError: Maximum call stack size exceeded</code> while there is still room to
-unwind — an ordinary JavaScript error, catchable by the script itself and by your
-<code>catch (JavaScriptException)</code>, with the engine still usable afterwards. It measures the remaining stack
-rather than counting calls, so it covers all of those routes and adapts to the thread the engine runs on:
-a host that provisions a larger stack gets proportionally more depth, rather than the frame count someone
-had to guess in advance.</p>
-<p dir="auto">A proper tail call in a strict function is exempt, and does not need the guard: it replaces the caller's
-frame instead of stacking one on top, so the recursion consumes no native stack however deep it runs. The
-check sits on the entries that do add a frame, so a strict tail recursion neither pays for it nor is
-stopped by it. Sloppy-mode recursion, a call out of tail position, and the non-call routes above are what
-remain in scope.</p>
-<p dir="auto">It is off by default because the check runs at every entry into a script function and that is not free.
-The benchmark gate measured recursion-heavy workloads (<code>Fib</code>, <code>DeepSum</code>, <code>Tak</code>) 1.7–2.3% slower with it
-on, with hot shallow calls unaffected. Enable it when the engine runs script you did not write, where a
-couple of percent on deep recursion in exchange for keeping your process is plainly the trade you want.
-Leave it off when every script is yours and you can bound it yourself.</p>
-<p dir="auto"><code>options.LimitRecursion(n)</code> answers a different question and composes with it. The recursion limit counts
-frames and is checked before the callee is entered, so where it is configured it is what fires; the guard
-answers only when no limit was set, or when the limit was set higher than the thread's stack can actually
-hold — which is easy to do by accident, since how many frames a stack holds is not something a host can
-see. A third and older setting, <code>options.Constraints.MaxExecutionStackCount</code>, continues the call chain on
-a fresh thread instead of throwing; it is checked at call expressions only, so it does not cover the other
-routes above, and it takes precedence over the guard when both are set.</p>
 <p dir="auto"><h2 tabindex="-1" dir="auto">Using Modules</h2><a id="user-content-using-modules" aria-label="Permalink: Using Modules" href="#using-modules"></a>
 <p dir="auto">You can use modules to <code>import</code> and <code>export</code> variables from multiple script files:</p>
 <div dir="auto" data-snippet-clipboard-copy-content="var engine = new Engine(options =>
@@ -1242,8 +1199,6 @@ stack trace and inner exceptions.</p>
 <li>Limit number of statements to prevent infinite loops.</li>
 <li>Limit depth of calls to prevent deep recursion calls.</li>
 <li>Define a timeout, to prevent scripts from taking too long to finish.</li>
-<li>Turn an unbounded recursion into a catchable error rather than a stack overflow that ends the process
-(see <a href="#surviving-an-unbounded-recursion">Surviving an unbounded recursion</a>; off by default).</li>
 </ul>
 <p dir="auto"><h2 tabindex="-1" dir="auto">Branches and releases</h2><a id="user-content-branches-and-releases" aria-label="Permalink: Branches and releases" href="#branches-and-releases"></a>
 <ul dir="auto">
