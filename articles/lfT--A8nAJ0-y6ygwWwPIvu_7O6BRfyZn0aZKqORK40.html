@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>GitHub - b3b00/csly: a C# embeddable lexer and parser generator (.Net core)</title><meta name="author" content=""><meta name="description" content="a C# embeddable lexer and parser generator (.Net core) - b3b00/csly"><meta name="dendron:source-url" content="https://www.github.com/b3b00/csly"><meta name="dendron:length" content="4641"><meta name="dendron:time-to-read-minutes" content="3"></head><body><article id="dendron-article-content"><div id="readability-page-1" class="page"><div data-hpc="true" containertiming="hpc"><article itemprop="text"><p dir="auto"><h2 tabindex="-1" dir="auto">C# lex and yacc</h2><a id="user-content-c-lex-and-yacc" aria-label="Permalink: C# lex and yacc" href="#c-lex-and-yacc"></a>
+<p dir="auto"><a href="https://coveralls.io/github/b3b00/csly?branch=dev" rel="nofollow"></a>
+<a href="https://github.com/b3b00/csly/actions/workflows/dotnetcore.yml"></a>
+<a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fb3b00%2Fcsly?ref=badge_shield" rel="nofollow"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=b3b00_csly" rel="nofollow"></a></p>
+<p dir="auto"><a href="https://github.com/codespaces/new?hide_repo_select=true&amp;ref=dev&amp;repo=89719340"></a></p>
+<p dir="auto"><a href="https://github.com/b3b00/sly/blob/dev/LICENSE"></a>
+<a href="https://www.nuget.org/packages/sly" rel="nofollow"></a></p>
+<p dir="auto">Csly is inspired by the Python lex yacc library (<a href="http://www.dabeaz.com/ply/" rel="nofollow">PLY</a>) and aims
+to simplify generating lexer/parsers in C#.</p>
+<p dir="auto"><h2 tabindex="-1" dir="auto">Getting started</h2><a id="user-content-getting-started" aria-label="Permalink: Getting started" href="#getting-started"></a>
+<p dir="auto">If you'd like to get coding right away, read
+the  <a href="https://github.com/b3b00/csly/wiki/getting-started">quick getting-started guide</a>, which will guide you through the implementation of a basic parser.</p>
+<p dir="auto"><h2 tabindex="-1" dir="auto">Documentation and examples</h2><a id="user-content-documentation-and-examples" aria-label="Permalink: Documentation and examples" href="#documentation-and-examples"></a>
+<p dir="auto">Complete documentation can be found in the <a href="https://github.com/b3b00/csly/wiki">wiki</a>. For a list of more advanced
+samples check out the samples folder in the repo.</p>
+<p dir="auto"><h2 tabindex="-1" dir="auto">Csly special features</h2><a id="user-content-csly-special-features" aria-label="Permalink: Csly special features" href="#csly-special-features"></a>
+<p dir="auto">Csly is packed with special features that make it simpler to use, maintainable, and type-safe.</p>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Fully embeddable</h3><a id="user-content-fully-embeddable" aria-label="Permalink: Fully embeddable" href="#fully-embeddable"></a>
+<p dir="auto">Csly has been designed to avoid extra build steps. Parser generators often need a build-time step
+to generate target language source code. That is not the case with csly.
+A simple Nuget command will configure csly for use in a 100% .NET implementation.</p>
+<blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Csly does not need a build-time step, simplifying the build/CI process</h3><a id="user-content-csly-does-not-need-a-build-time-step-simplifying-the-buildci-process" aria-label="Permalink: Csly does not need a build-time step, simplifying the build/CI process" href="#csly-does-not-need-a-build-time-step-simplifying-the-buildci-process"></a>
+</blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Compact lexer/parser definition</h3><a id="user-content-compact-lexerparser-definition" aria-label="Permalink: Compact lexer/parser definition" href="#compact-lexerparser-definition"></a>
+<p dir="auto">The csly lexer/parser is defined with only 2 types:</p>
+<ul dir="auto">
+<li>a C# <code>enum</code> for the lexer,</li>
+<li>a C# <code>class</code> for the parser.</li>
+</ul>
+<p dir="auto">Lexeme and parser production rules are defined using C# custom attributes making your code compact and readable.
+Although these features already exist with parser combinators (like <a href="https://github.com/sprache/Sprache">Sprache</a>
+or <a href="https://github.com/picoe/Eto.Parse">Eto.Parse</a>),
+csly can use productions rules defined using either <a href="https://github.com/b3b00/csly/wiki/BNF-Parser">BNF</a> or <a href="https://github.com/b3b00/csly/wiki/EBNF-Parser">EBNF</a>  notation, which I think is more natural and easier to understand, assuring maintainability.</p>
+<blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Define languages in a very compact and dependency-free way</h3><a id="user-content-define-languages-in-a-very-compact-and-dependency-free-way" aria-label="Permalink: Define languages in a very compact and dependency-free way" href="#define-languages-in-a-very-compact-and-dependency-free-way"></a>
+</blockquote>
+<p dir="auto">See <a href="https://github.com/b3b00/csly/wiki/Lexer">Lexer</a> for lexers definition and <a href="https://github.com/b3b00/csly/wiki/BNF-Parser">BNF</a> or  <a href="https://github.com/b3b00/csly/wiki/EBNF-Parser">EBNF</a> for parser definitions.</p>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Fully and Strictly typed</h3><a id="user-content-fully-and-strictly-typed" aria-label="Permalink: Fully and Strictly typed" href="#fully-and-strictly-typed"></a>
+<p dir="auto">Csly is strictly typed, so every parser you define renders according to its input and output types.
+For additional details on parser typing, head to the <a href="https://github.com/b3b00/csly/wiki/defining-your-parser">parser definition section</a>.</p>
+<blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Be more confident that your parser will generate valid inputs and outputs.</h3><a id="user-content-be-more-confident-that-your-parser-will-generate-valid-inputs-and-outputs" aria-label="Permalink: Be more confident that your parser will generate valid inputs and outputs." href="#be-more-confident-that-your-parser-will-generate-valid-inputs-and-outputs"></a>
+</blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Expression parsing</h3><a id="user-content-expression-parsing" aria-label="Permalink: Expression parsing" href="#expression-parsing"></a>
+<p dir="auto">Many domain-specific languages need parsing expressions (boolean or numeric).
+A recursive-descent parser is hard to maintain when parsing expressions have multiple precedence levels. For that reason, csly offers a way to generate expression-parsing rules using only operator tokens and a simple-to-understand precedence scheme. Csly will then generate production rules to parse expressions, managing precedence and either left-or-right associativity.</p>
+<blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Avoid burdensome hand-made expression parser implementations.</h3><a id="user-content-avoid-burdensome-hand-made-expression-parser-implementations" aria-label="Permalink: Avoid burdensome hand-made expression parser implementations." href="#avoid-burdensome-hand-made-expression-parser-implementations"></a>
+</blockquote>
+<p dir="auto">see <a href="https://github.com/b3b00/csly/wiki/expression-parsing">expression parsing</a></p>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Indentable languages support</h3><a id="user-content-indentable-languages-support" aria-label="Permalink: Indentable languages support" href="#indentable-languages-support"></a>
+<p dir="auto">Some languages use indentation to denote functional blocks, like Python or Yaml.
+Csly provides native support for indentation. Head to <a href="https://github.com/b3b00/csly/wiki/Indented-languages">Indented Languages</a></p>
+<blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Easily use indentation to make your language more readable.</h3><a id="user-content-easily-use-indentation-to-make-your-language-more-readable" aria-label="Permalink: Easily use indentation to make your language more readable." href="#easily-use-indentation-to-make-your-language-more-readable"></a>
+</blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Preserve comments</h3><a id="user-content-preserve-comments" aria-label="Permalink: Preserve comments" href="#preserve-comments"></a>
+<p dir="auto">Comments or whitespace are almost every time discardable. But sometimes it makes sens to preserve them :</p>
+<ul dir="auto">
+<li>use comments to generate auto doc (think javadoc, c#'s xmldoc or python's docstring )</li>
+<li>introduce meta data without cluttering your grammar</li>
+</ul>
+<p dir="auto">So CSLY borrowed the (antlr channel concept)[<a href="https://datacadamia.com/antlr/channel" rel="nofollow">https://datacadamia.com/antlr/channel</a>].
+Every lexeme can be redirected to a specific channel. By default comments go to channel 2.</p>
+<p dir="auto">This feature is already available on branch dev but not deployed in any nuget package.
+Documentation is also a work in progress event though you can have it a glance looking at (EBNF unit tests)[<a href="https://github.com/b3b00/csly/blob/dev/ParserTests/EBNFTests.cs">https://github.com/b3b00/csly/blob/dev/ParserTests/EBNFTests.cs</a>] :</p>
+<ul dir="auto">
+<li><a href="https://github.com/b3b00/csly/blob/dev/ParserTests/EBNFTests.cs#L1357">TestIndentedParserNestedBlocks</a></li>
+<li><a href="https://github.com/b3b00/csly/blob/dev/ParserTests/EBNFTests.cs#L1409">TestIndentedParserWithEolAwareness</a></li>
+<li><a href="https://github.com/b3b00/csly/blob/dev/ParserTests/EBNFTests.cs#L1445">TestIndentedParserWithEolAwareness2</a></li>
+<li><a href="https://github.com/b3b00/csly/blob/dev/ParserTests/EBNFTests.cs#L1481">TestIssue213WithChannels</a></li>
+</ul>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Generic lexer</h3><a id="user-content-generic-lexer" aria-label="Permalink: Generic lexer" href="#generic-lexer"></a>
+<p dir="auto">Lexemes are often similar from one language to another. Csly introduces a generic lexer that defines common lexemes and which can be reused across languages.
+The built-in generic lexer has better performance than a regex-based lexer.</p>
+<blockquote>
+<p dir="auto"><h3 tabindex="-1" dir="auto">Reuse common token definition and take advantage of better lexer performance.</h3><a id="user-content-reuse-common-token-definition-and-take-advantage-of-better-lexer-performance" aria-label="Permalink: Reuse common token definition and take advantage of better lexer performance." href="#reuse-common-token-definition-and-take-advantage-of-better-lexer-performance"></a>
+</blockquote>
+<p dir="auto">See <a href="https://github.com/b3b00/csly/wiki/GenericLexer">Generic lexer</a> for the generic lexer implementation and <a href="https://github.com/b3b00/wiki/Lexer">Lexer</a> for a general presentation on rolling your own.</p>
+<p dir="auto"><h3 tabindex="-1" dir="auto">What Csly is and isn't</h3><a id="user-content-what-csly-is-and-isnt" aria-label="Permalink: What Csly is and isn't" href="#what-csly-is-and-isnt"></a>
+<p dir="auto"><h4 tabindex="-1" dir="auto">Csly is not</h4><a id="user-content-csly-is-not" aria-label="Permalink: Csly is not" href="#csly-is-not"></a>
+<p dir="auto">Csly is not a fully-featured parser generator like <a href="http://www.antlr.org/" rel="nofollow">ANTLR</a>.
+You should therefore not use it to define strong-typed languages like  C# or Java.</p>
+<p dir="auto"><h4 tabindex="-1" dir="auto">Csly is</h4><a id="user-content-csly-is" aria-label="Permalink: Csly is" href="#csly-is"></a>
+<p dir="auto">Csly is perfect for small <a href="https://en.wikipedia.org/wiki/Domain-specific_language" rel="nofollow">domain-specific languages (DSLs)</a> that can be bundled in C# applications for end-users to interact with your application using natural language, for example.</p>
+<p dir="auto"><h2 tabindex="-1" dir="auto">Installation</h2><a id="user-content-installation" aria-label="Permalink: Installation" href="#installation"></a>
+<p dir="auto">Install from the NuGet gallery GUI or with the Package Manager Console using the following command:</p>
+<p dir="auto"><code>Install-Package sly</code></p>
+<p dir="auto">or with dotnet core</p>
+<p dir="auto"><code>dotnet add package sly</code></p>
+<p dir="auto"><h2 tabindex="-1" dir="auto">Buy me a coffee</h2><a id="user-content-buy-me-a-coffee" aria-label="Permalink: Buy me a coffee" href="#buy-me-a-coffee"></a>
+<p dir="auto">If you found CSLY usefull consider supporting with :</p>
+<p dir="auto"><a href="https://www.buymeacoffee.com/b3b00" rel="nofollow"></a></p>
+<p dir="auto"><h2 tabindex="-1" dir="auto">Special thanks to</h2><a id="user-content-special-thanks-to" aria-label="Permalink: Special thanks to" href="#special-thanks-to"></a>
+<p dir="auto"><a href="https://jb.gg/OpenSource" rel="nofollow"></a></p>
+</article></div></div></article></body></html>
